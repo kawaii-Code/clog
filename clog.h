@@ -23,7 +23,6 @@ void clog_warn_internal(const char *message, const char *filename, int line);
 void clog_error_internal(const char *message, const char *filename, int line);
 void clog_fatal_internal(const char *message, const char *filename, int line);
 
-#define CLOG_IMPLEMENTATION
 #ifdef CLOG_IMPLEMENTATION
 
 #define TERMANSI_IMPLEMENTATION
