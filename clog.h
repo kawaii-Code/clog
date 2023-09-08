@@ -26,7 +26,7 @@ void clog_fatal_internal(const char *message, const char *filename, int line);
 #ifdef CLOG_IMPLEMENTATION
 
 #define TERMANSI_IMPLEMENTATION
-#include "termansi.h"
+#include "termansi/termansi.h"
 
 void clog_color(int r, int g, int b) {
 #ifdef CLOG_TERMCOLOR

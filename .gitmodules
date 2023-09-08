@@ -1,0 +1,3 @@
+[submodule "termansi"]
+	path = termansi
+	url = https://github.com/kawaii-Code/termansi
