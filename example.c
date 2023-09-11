@@ -1,4 +1,5 @@
 #define CLOG_IMPLEMENTATION
+#define CLOG_TERMCOLOR
 #include "clog.h"
 
 int main() {

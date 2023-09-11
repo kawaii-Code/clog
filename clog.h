@@ -4,7 +4,6 @@
 #include <time.h>
 #include <stdio.h>
 
-#define CLOG_TERMCOLOR
 #define CLOG_GRAY   0
 #define CLOG_YELLOW 3
 #define CLOG_RED    1
