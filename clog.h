@@ -3,13 +3,12 @@
 
 #include <time.h>
 #include <stdio.h>
-#include <assert.h>
 
 #define CLOG_TERMCOLOR
-#define CLOG_GRAY   100, 100, 100
-#define CLOG_YELLOW 200, 200, 0
-#define CLOG_RED    255, 0,   0
-#define CLOG_PURPLE 255, 0,   255
+#define CLOG_GRAY   0
+#define CLOG_YELLOW 3
+#define CLOG_RED    1
+#define CLOG_PURPLE 5
 
 #define clog_trace(message) clog_trace_internal(message, __FILE__, __LINE__)
 #define clog_info(message)  clog_info_internal(message, __FILE__, __LINE__)
@@ -28,9 +27,9 @@ void clog_fatal_internal(const char *message, const char *filename, int line);
 #define TERMANSI_IMPLEMENTATION
 #include "termansi/termansi.h"
 
-void clog_color(int r, int g, int b) {
+void clog_color(int id) {
 #ifdef CLOG_TERMCOLOR
-    ansi_color_setforeground(r, g, b);
+    ansi_color_foreground256(id);
 #endif
 }
 
@@ -46,20 +45,14 @@ void clog_resetcolor() {
 #endif
 }
 
-void clog_get_timestamp(char *buf, size_t buf_length) {
-    assert(buf_length > 8);
-
+void clog_write(const char *message, const char *severity, const char *filename, int line) {
+    char timestamp_buf[9];
     time_t t = time(0);
     struct tm tm = *localtime(&t);
-    sprintf(buf, "%02d:%02d:%02d", tm.tm_hour, tm.tm_min, tm.tm_sec);
-    buf[9] = '\0';
-}
+    sprintf(timestamp_buf, "%02d:%02d:%02d", tm.tm_hour, tm.tm_min, tm.tm_sec);
+    timestamp_buf[9] = '\0';
 
-void clog_write(const char *message, const char *severity, const char *filename, int line) {
-    char timestampBuf[9];
-    clog_get_timestamp(timestampBuf, 9);
-
-    printf("%s [%s], %s:%d: %s\n", severity, timestampBuf, filename, line, message);
+    printf("%s [%s], %s:%d: %s\n", severity, timestamp_buf, filename, line, message);
 }
 
 void clog_trace_internal(const char *message, const char *filename, int line) {
